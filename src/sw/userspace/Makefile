@@ -11,7 +11,7 @@ KNORM := "\e[0m"
 build_dir := build/
 include_dir := $(abspath ../../../include/)
 includes := $(addprefix -I, $(include_dir))
-cflags := -Wall -Werror -O2 $(includes)
+cflags := -Wall -Werror -O2 $(includes) -Wno-unused-variable -Wno-unused-function
 targets := pciemu_example
 
 .PHONY : all

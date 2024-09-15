@@ -7,7 +7,8 @@
 
 obj-m += pciemu.o
 pciemu-objs += pciemu_module.o pciemu_dma.o pciemu_irq.o
-ccflags-y=-I/hostdir/include
+#ccflags-y=-I/hostdir/include
+ccflags-y=-I/hostdir/include -I/root/qemu-code/pciemu/include
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
