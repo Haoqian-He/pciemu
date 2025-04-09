@@ -60,7 +60,7 @@ static long pciemu_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
 	int pages_pinned = 0;
 	int pages_nb_req = 1;
 	unsigned long __user vaddr = arg;
-	unsigned long ofs = vaddr & ~PAGE_MASK;
+	unsigned long ofs = vaddr & ~PAGE_MASK; // 这里是为啥要计算页偏移
 	unsigned long len = ((ofs + sizeof(int)) > PAGE_SIZE) ?
 				    (PAGE_SIZE - ofs) :
 				    sizeof(int);
@@ -117,6 +117,9 @@ static int pciemu_dev_init(struct pciemu_dev *pciemu_dev, struct pci_dev *pdev)
 	pciemu_dev->bar.end = pci_resource_end(pdev, bar);
 	pciemu_dev->bar.len = pci_resource_len(pdev, bar);
 	pciemu_dev->bar.mmio = pci_iomap(pdev, bar, pciemu_dev->bar.len);
+
+	printk("[haoqian %s %d] GUEST MMIO %p\n", __func__, __LINE__, pciemu_dev->bar.mmio);
+
 	if (!pciemu_dev->bar.mmio) {
 		dev_err(&(pdev->dev), "cannot map BAR %u\n", bar);
 		pciemu_dev_clean(pciemu_dev);

@@ -33,3 +33,4 @@ cd qemu
 	--target-list=x86_64-softmmu
 
 printf "\nSetup finished. You may now build QEMU (cd qemu && make)\n"
+bear -- make -j32;cd -
